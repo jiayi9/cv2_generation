@@ -47,26 +47,27 @@ def generate_random_images(mode, output_folder, N,
 
 generate_random_images(
         mode = "line",
-        output_folder="C:/LV_CHAO_IMAGE/simulation_data/line_200/",
-        N = 500,
-        length_mean = 10,
+        output_folder="C:/LV_CHAO_IMAGE/simulation_data/line_256/",
+        N = 1000,
+        length_mean = 20,
+        length_std = 5,
         thickness = 3,
         scale = (256,256)
 )
 
 generate_random_images(
         mode = "circle",
-        N = 500,
-        radius_mean = 6,
+        N = 1000,
+        radius_mean = 15,
         radius_std = 4,
-        output_folder="C:/LV_CHAO_IMAGE/simulation_data/circle_200/",
+        output_folder="C:/LV_CHAO_IMAGE/simulation_data/circle_256/",
         scale = (256,256)
 )
 
 generate_random_images(
         mode = "pass",
-        N = 500,
-        output_folder="C:/LV_CHAO_IMAGE/simulation_data/pass_200/",
+        N = 1000,
+        output_folder="C:/LV_CHAO_IMAGE/simulation_data/pass_256/",
         scale = (256,256)
 )
 
