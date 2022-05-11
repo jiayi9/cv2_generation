@@ -44,7 +44,7 @@ def generate_random_images(mode, output_folder, N,
 
 
 
-
+####################################################################################
 generate_random_images(
         mode = "line",
         output_folder="C:/LV_CHAO_IMAGE/simulation_data/line_256/",
@@ -71,3 +71,46 @@ generate_random_images(
         scale = (256,256)
 )
 
+
+####################################################################################
+# Galileo test v1
+# circles
+generate_random_images(
+        mode = "line",
+        output_folder="C:/Temp/simulated_images/lines/",
+        N = 50,
+        length_mean = 30,
+        length_std = 2,
+        thickness = 2,
+        scale = (128,128)
+)
+
+generate_random_images(
+        mode = "circle",
+        N = 50,
+        radius_mean = 10,
+        radius_std = 2,
+        output_folder="C:/Temp/simulated_images/circles/",
+        scale = (128,128)
+)
+
+
+# test
+generate_random_images(
+        mode = "line",
+        output_folder="C:/Temp/simulated_images/lines_test/",
+        N = 50,
+        length_mean = 20,
+        length_std = 2,
+        thickness = 2,
+        scale = (128,128)
+)
+
+generate_random_images(
+        mode = "circle",
+        N = 50,
+        radius_mean = 10,
+        radius_std = 2,
+        output_folder="C:/Temp/simulated_images/circles_test/",
+        scale = (128,128)
+)
