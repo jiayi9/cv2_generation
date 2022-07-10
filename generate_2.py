@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 import uuid
 from typing import Tuple
-from matplotlib import pyplot as plt
+
 
 def simulate_random_shapes(
         shape: str,
@@ -14,7 +14,7 @@ def simulate_random_shapes(
         thickness: int = -1,
         radius_mean: float = -1,
         radius_std: float = -1,
-        scale: Tuple[int, int] = (200, 200),
+        scale: Tuple[int, int] = (512, 512),
         noise_ratio: float = 0.01,
         border_ratio: Tuple[float, float] = (0.2, 0.8),
         convert_to_rgb: bool = False
@@ -38,13 +38,16 @@ def simulate_random_shapes(
         None
 
     """
+    # create the saving folder if not existent
     if not os.path.exists(os.path.join(output_folder)):
         os.makedirs(os.path.join(output_folder))
 
+    # generate images through loop
     for i in range(sample_size):
         img = np.random.binomial(1, noise_ratio, scale).astype(float)
 
         if shape == "line":
+            # Need randomize the starting and ending coordinates for line
             starting_point = np.append(
                 np.random.uniform(scale[0] * border_ratio[0], scale[0] * border_ratio[1], 1).astype(int),
                 np.random.uniform(scale[0] * border_ratio[0], scale[1] * border_ratio[1], 1).astype(int)
@@ -57,6 +60,7 @@ def simulate_random_shapes(
             starting_point = tuple(starting_point)
             img_new = cv2.line(img, starting_point, ending_point, color=1, thickness=thickness)
         elif shape == "circle":
+            # Need to randomize the center coordinate and the radius value
             center = np.append(
                 np.random.uniform(scale[0] * border_ratio[0], scale[0] * border_ratio[1], 1).astype(int),
                 np.random.uniform(scale[0] * border_ratio[0], scale[1] * border_ratio[1], 1).astype(int)
@@ -65,20 +69,27 @@ def simulate_random_shapes(
             radius = max(int((np.random.normal(0, radius_std, 1) + radius_mean)[0]), 2)
             img_new = cv2.circle(img, center, radius, 1, -1)
         elif shape == "square":
-            print("Not done yet!")
+            # Recommend keeping this structure for future work
+            print("The shape specified is wrong or not included yet. No images are generated.")
+            return
         elif shape == "triangle":
-            print("Not done yet!")
+            # Recommend keeping this structure for future work
+            print("The shape specified is wrong or not included yet. No images are generated.")
+            return
         elif shape == "noise":
             img_new = img
         else:
-            print("The shape specified is wrong")
+            print("The shape specified is wrong or not included yet. No images are generated.")
             return
 
         if convert_to_rgb:
+            # Convert (height, width) to (height, width, 3) with duplications
             img_new = np.stack((img_new, img_new, img_new), axis=2)
 
         uuid_str = uuid.uuid4().hex
-        cv2.imwrite(output_folder + uuid_str + '.jpg', img_new * 255)
+        output_path = os.path.join(output_folder, uuid_str + '.jpg')
+        cv2.imwrite(output_path, img_new * 255)
+
 
 simulate_random_shapes(
         shape = "circle",
